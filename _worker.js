@@ -44,10 +44,7 @@ let proxyIPs = [//无法匹配到节点名就随机分配以下ProxyIP域名
 ];
 let CMproxyIPs = [
 	//'proxyip.aliyun.fxxk.dedyn.io:HK',//匹配节点名, 有HK就分配该ProxyIP域名
-];
-let CMproxyIPapis = [
-	//'proxyip.aliyun.fxxk.dedyn.io:HK',//匹配节点名, 有HK就分配该ProxyIP域名
-];
+]
 let socks5DataURL = '';//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/socks5Data'
 let BotToken ='';
 let ChatID =''; 
@@ -284,7 +281,6 @@ export default {
 		if (env.ADDNOTLS) addressesnotls = await ADD(env.ADDNOTLS);
 		if (env.ADDNOTLSAPI) addressesnotlsapi = await ADD(env.ADDNOTLSAPI);
 		if (env.ADDCSV) addressescsv = await ADD(env.ADDCSV);
-		if (env.CMPROXYIPAPI) CMproxyIPapis = await ADD(env.CMPROXYIPAPI);
 		DLS = env.DLS || DLS;
 
 		/*
@@ -471,14 +467,9 @@ export default {
 			const newAddressescsv = await getAddressescsv('TRUE');
 			addresses = addresses.concat(newAddressesapi);
 			addresses = addresses.concat(newAddressescsv);
-
+			
 			// 使用Set对象去重
 			const uniqueAddresses = [...new Set(addresses)];
-
-			const newCMproxyIPs = await getAddressesapi(CMproxyIPapis);
-			CMproxyIPs = CMproxyIPs.concat(newCMproxyIPs);
-			CMproxyIPs = [...new Set(CMproxyIPs)];
-			console.log(CMproxyIPs);
 			
 			let notlsresponseBody;
 			if(noTLS == 'true' && 协议类型 == 'VLESS'){
